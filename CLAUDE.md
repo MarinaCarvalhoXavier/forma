@@ -79,6 +79,15 @@ The page was redesigned with the Hallmark skill (`.agents/skills/hallmark`, also
   - grids that contain images use `minmax(0, 1fr)` tracks
   - every interactive element has hover, focus-visible and active states, and form fields keep a 1px border in every state
 
+## `scroll-world` branch
+
+This branch opens the page with a scroll-scrubbed camera walkthrough, built with the scroll-world skill. It's architecture A: one forward leg per scene, with no connectors.
+- **Engine:** vendored unmodified at `forma/public/world/scrub-engine.js` (excluded from ESLint). It's mounted once by `components/ScrollWorld.tsx` and themed through unlayered `.sw-*` overrides at the end of `globals.css`.
+- **Config and copy:** `world` in `content.ts`.
+- **Page structure:** the rest of the page sits in a `relative z-[70]` wrapper, so it slides over the engine's fixed layers. The engine assumes its container is at the very top of the page (scroll positions start at 0), so nothing may go above `<ScrollWorld />`.
+- **Footage is free placeholder material:** push-ins on stock photos. `bash world/build-placeholder.sh` (run in `forma/`, needs ffmpeg) rebuilds `public/world/`. Each leg opens on the previous leg's real last frame, so the seams are frame-identical. Read the last frame with `-update 1` and without `-frames:v 1`, otherwise you get a frame a few frames early.
+- **Real AI render:** prompts, open decisions and cost estimates are in `forma/world/brief.md`. Nothing has been paid for.
+
 ## Planned but not built
 
 The owner wants these later, so don't add them unasked:

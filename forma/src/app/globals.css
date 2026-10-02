@@ -56,3 +56,53 @@ h3 {
     transition-duration: 0ms !important;
   }
 }
+
+/* Scroll-world engine theme. The engine's own CSS lives in `@layer sw`, so these
+ * unlayered rules win. Colours and fonts come from the Design.md tokens. */
+.sw-root {
+  --sw-bg: var(--color-paper);
+  --sw-ink: var(--color-ink);
+  --sw-ink-soft: var(--color-muted);
+  --sw-accent: var(--color-accent);
+  --sw-font-display: var(--font-display);
+  --sw-font-body: var(--font-body);
+}
+.sw-particles,
+.sw-brand__mark {
+  display: none;
+}
+.sw-brand__name,
+.sw-copy__title {
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.sw-brand__name {
+  font-size: var(--text-xl);
+}
+.sw-copy__num,
+.sw-copy__eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+.sw-nav,
+.sw-route__label {
+  background: color-mix(in srgb, var(--color-paper-2) 85%, transparent);
+  border-color: var(--color-rule);
+}
+.sw-nav__item.is-active {
+  color: var(--color-accent-ink);
+}
+.sw-topcta,
+.sw-btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+.sw-topcta:hover,
+.sw-btn--primary:hover {
+  background: var(--color-accent-hover);
+}
+.sw-copy__tags li {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule);
+  color: var(--color-ink);
+}
