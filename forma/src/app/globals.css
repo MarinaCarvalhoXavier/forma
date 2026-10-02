@@ -1,0 +1,58 @@
+/* Hallmark · genre: editorial · macrostructure: Letter · tone: austere · anchor hue: 60
+ * theme: design.md (Havn) · dark: #000 paper · #EAB308 accent · DM Serif Display + Inter + JetBrains Mono labels
+ * radius: card 16px · control 8px · pill buttons
+ * H5 letter knobs: salutation=greeting, body=2 paragraphs, signoff=typed name
+ * nav: N9 edge-aligned (CTA outlined) · footer: Ft6 letter close (roman, postscript)
+ * features: F3 spec sheet (3 cols, every row) · F4 steps (01/02, vertical, no connector)
+ * enrichment: none (placeholder photography) · motion: none (colour only) · contrast: pass (40–41)
+ */
+@import "tailwindcss";
+@import "../../tokens.css";
+
+html,
+body {
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.04;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* Instant, visible focus ring on every interactive element.
+ * In the base layer so components (form fields) can tighten the offset. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition-duration: 0ms !important;
+  }
+}

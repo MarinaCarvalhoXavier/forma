@@ -1,0 +1,52 @@
+/* Forma design tokens — the single source for colour, type, space and motion.
+ * Tailwind v4 theme block: every token is emitted as a CSS variable on :root
+ * (usable as var(--color-ink)) and as a utility (bg-paper, p-md, text-display).
+ * Visual system from Design.md (Havn): dark mode · yellow accent · serif display,
+ * Inter body, mono labels. Token names stay role-based so components don't change. */
+
+@theme static {
+  /* Colour — Design.md roles: background, surface, text-primary, text-secondary, border, primary */
+  --color-paper: #000000; /* background */
+  --color-paper-2: #171717; /* surface */
+  --color-rule: #525252; /* border */
+  --color-muted: #a1a1aa; /* text-secondary */
+  --color-ink: #ffffff; /* text-primary */
+  --color-accent: #eab308; /* primary / accent */
+  --color-accent-hover: #facc15;
+  --color-accent-ink: #000000; /* text on the accent */
+  --color-focus: #eab308;
+  --color-error: #f87171;
+  --color-success: #4ade80;
+
+  /* Type — families are loaded with next/font in src/app/layout.tsx */
+  --font-display: var(--font-dm-serif), Georgia, serif;
+  --font-body: var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --text-label: 0.75rem; /* label-md, mono */
+  --text-sm: 0.875rem;
+  --text-base: 1rem; /* body-md */
+  --text-md: 1.25rem;
+  --text-xl: 2rem;
+  --text-display: clamp(2.5rem, 4vw + 1rem, 4rem); /* display-lg, 64px max */
+
+  /* Space — 4pt scale, named by role (p-md, gap-xl, …) */
+  --spacing-2xs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
+  --spacing-4xl: 9rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 160ms;
+
+  /* Shape — rounded-card, rounded-control, rounded-pill */
+  --radius-card: 16px;
+  --radius-control: 8px;
+  --radius-pill: 9999px;
+}

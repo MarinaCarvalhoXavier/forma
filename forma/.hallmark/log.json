@@ -1,0 +1,22 @@
+[
+  {
+    "date": "2026-10-01",
+    "macrostructure": "Letter",
+    "theme": "design.md (Havn) — restyle only",
+    "theme_axes": "dark / high-contrast-serif / warm",
+    "enrichment": "none",
+    "nav": "N9 Edge-aligned minimal",
+    "footer": "Ft6 Letter close",
+    "brief": "Forma · applied Design.md visual system; structure, layout and motion unchanged"
+  },
+  {
+    "date": "2026-10-01",
+    "macrostructure": "Letter",
+    "theme": "brand palette (preserved)",
+    "theme_axes": "light / roman-serif / warm",
+    "enrichment": "none",
+    "nav": "N9 Edge-aligned minimal",
+    "footer": "Ft6 Letter close",
+    "brief": "Forma · solo architecture practice · redesign, austere, enquiries via 'Start a project' form"
+  }
+]

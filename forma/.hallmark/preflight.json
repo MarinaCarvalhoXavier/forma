@@ -1,0 +1,9 @@
+{
+  "scanned": "2026-10-01",
+  "framework": "Next.js 16 (App Router), Tailwind CSS v4",
+  "fonts_before": "Fraunces + DM Sans via next/font (src/app/layout.tsx)",
+  "fonts_after": "Newsreader (display, letter prose) + Geist (body, UI) via next/font",
+  "palette": "sand / stone / clay / wood / charcoal hex tokens in src/app/globals.css — moved to OKLCH in tokens.css, wood and stone dropped",
+  "motion": "none — no motion library installed",
+  "spacing": "Tailwind default scale — replaced by named 4pt scale in tokens.css"
+}
