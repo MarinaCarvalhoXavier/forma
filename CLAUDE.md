@@ -52,7 +52,7 @@ There is no test suite. Verify changes with `npm run lint` and `npm run build`, 
 ## Architecture
 
 - **Content is separate from presentation.** All copy, images, links and lists live in `forma/src/data/content.ts`. Components import from it and contain no hardcoded copy. New content goes in `content.ts`, never inline in a component.
-- **Placeholders:** the architect's name ("Helena Duarte") and portrait, the project names, the contact details and every photo are placeholders. Never add numbers, client quotes, logos or awards that the owner hasn't supplied. The design rules ban invented proof.
+- **Placeholders:** the architect's name ("Helena Duarte") and portrait, the project names and the contact details are placeholders. Project images in `public/images/projects/` are AI-generated concept images (prompts in `forma/photos-inbox/prompts.md`), not photos of built work. Never add numbers, client quotes, logos or awards that the owner hasn't supplied. The design rules ban invented proof.
 - **Primary CTA:** every "Start a project" link points to `#contact`. The header uses `components/StartProjectLink.tsx`, and the letter uses text links.
 - **Contact form:** the form in `components/ContactForm.tsx` is the only client component. It validates on blur and on submit. With no form backend yet, submitting opens the visitor's email app (`mailto:` to `contact.email`) with the enquiry prefilled. Connecting a real form service would replace that one step in `handleSubmit`.
 - **Page order:** `src/app/page.tsx` composes the sections: Header → Hero (letter opening, `#top`) → About (`#about`) → Projects (`#work`) → Services (`#services`) → Process → Contact (`#contact`) → Footer.
@@ -85,7 +85,7 @@ This branch opens the page with a scroll-scrubbed camera walkthrough, built with
 - **Engine:** vendored unmodified at `forma/public/world/scrub-engine.js` (excluded from ESLint). It's mounted once by `components/ScrollWorld.tsx` and themed through unlayered `.sw-*` overrides at the end of `globals.css`.
 - **Config and copy:** `world` in `content.ts`.
 - **Page structure:** the rest of the page sits in a `relative z-[70]` wrapper, so it slides over the engine's fixed layers. The engine assumes its container is at the very top of the page (scroll positions start at 0), so nothing may go above `<ScrollWorld />`.
-- **Footage is free placeholder material:** push-ins on stock photos. `bash world/build-placeholder.sh` (run in `forma/`, needs ffmpeg) rebuilds `public/world/`. Each leg opens on the previous leg's real last frame, so the seams are frame-identical. Read the last frame with `-update 1` and without `-frames:v 1`, otherwise you get a frame a few frames early.
+- **Footage is free placeholder material:** camera push-ins on the AI-generated scene images in `forma/world/sources/<id>.jpg`. `bash world/build-placeholder.sh` (run in `forma/`, needs ffmpeg) rebuilds `public/world/`. Each leg opens on the previous leg's real last frame, so the seams are frame-identical. Read the last frame with `-update 1` and without `-frames:v 1`, otherwise you get a frame a few frames early.
 - **Real AI render:** prompts, open decisions and cost estimates are in `forma/world/brief.md`. Nothing has been paid for.
 
 ## Planned but not built

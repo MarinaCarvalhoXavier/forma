@@ -42,3 +42,6 @@ next-env.d.ts
 
 # scroll-world placeholder build cache
 /world/.cache/
+
+# full-size original images (optimised copies live in public/ and world/sources/)
+/photos/

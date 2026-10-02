@@ -67,47 +67,48 @@ export type Project = {
   images?: string[];
 };
 
-// Placeholder projects — names, places and photos are stand-ins.
+// Placeholder projects — names and places are stand-ins; images are AI-generated
+// concept images (photos/ folder), not photographs of built work.
 export const projects: Project[] = [
   {
     name: "Casa Ripa",
     location: "Curitiba",
     year: 2024,
     category: "Home",
-    image: unsplash("1600047509807-ba8f99d2cdde", 1800),
-    imageAlt: "Two-storey house with timber cladding and a planted front garden",
+    image: "/images/projects/casa-ripa.jpg",
+    imageAlt: "Two-storey house with a timber-clad upper floor, white render below and a planted front garden",
   },
   {
     name: "Apartamento Terra",
     location: "São Paulo",
     year: 2023,
     category: "Interior",
-    image: unsplash("1600210492486-724fe5c67fb0", 1200),
-    imageAlt: "Living room with pale walls, linen sofa and timber floor",
+    image: "/images/projects/apartamento-terra.jpg",
+    imageAlt: "Apartment living room with terracotta walls, built-in timber shelves and a city view at sunset",
   },
   {
     name: "Jardim Musgo",
     location: "Petrópolis",
     year: 2023,
     category: "Landscape",
-    image: unsplash("1598902108854-10e335adac99", 1200),
-    imageAlt: "Shaded garden with moss, ferns and planted stone edges",
+    image: "/images/projects/jardim-musgo.jpg",
+    imageAlt: "Stone stepping path through moss and ferns beside a dry-stone wall in a misty mountain garden",
   },
   {
     name: "Estúdio Lima",
     location: "Lisbon",
     year: 2022,
     category: "Workspace",
-    image: unsplash("1497366216548-37526070297c", 1200),
-    imageAlt: "Small open-plan studio with long desks and daylight",
+    image: "/images/projects/estudio-lima.jpg",
+    imageAlt: "Daylit studio with a long timber worktable, open shelving and a tall window",
   },
   {
     name: "Casa Horizonte",
     location: "Trancoso",
     year: 2022,
     category: "Home",
-    image: unsplash("1512917774080-9991f1c4c750", 1800),
-    imageAlt: "White house with a long pool and a terrace facing the sea",
+    image: "/images/projects/casa-horizonte.jpg",
+    imageAlt: "Beach house with a timber pergola, a long pool and palm trees at sunset",
   },
 ];
 

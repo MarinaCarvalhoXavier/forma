@@ -1,8 +1,8 @@
 #!/bin/bash
-# Builds FREE placeholder footage for the scroll-world prototype (no AI, no credits).
+# Builds FREE footage for the scroll-world walkthrough (no AI video, no credits).
 #
 # Architecture A (continuous forward walkthrough): one leg per scene. Each leg is a
-# slow camera push-in on a placeholder photo. Leg i>0 opens on the ACTUAL last frame
+# slow camera push-in on the scene image in world/sources/<id>.jpg. Leg i>0 opens on the ACTUAL last frame
 # of leg i-1 (still drifting forward) and dissolves into its own photo, so every
 # seam is frame-identical — the same seam rule the real AI chain follows.
 #
@@ -16,8 +16,8 @@ CACHE="world/.cache"
 OUT="public/world"
 mkdir -p "$CACHE" "$OUT/vid"
 
-# id:unsplash-photo-id — order = scroll order
-SCENES="home:1600585154340-be6161a56a0c site:1598902108854-10e335adac99 sketch:1503387762-592deb58ef4e material:1600047509807-ba8f99d2cdde inside:1600210492486-724fe5c67fb0"
+# scene ids in scroll order; each needs world/sources/<id>.jpg
+SCENES="home site sketch material inside"
 
 W=1920; H=1080; FPS=30
 LEG=6        # seconds of push-in per scene
@@ -40,10 +40,8 @@ pushin() {  # $1 image, $2 seconds, $3 zoom start, $4 zoom end, $5 out
 }
 
 prev_last=""
-for pair in $SCENES; do
-  id="${pair%%:*}"; photo="${pair#*:}"
-  src="$CACHE/$id.jpg"
-  [ -f "$src" ] || curl -sSL -o "$src" "https://images.unsplash.com/photo-$photo?auto=format&fit=crop&w=2400&q=85"
+for id in $SCENES; do
+  src="world/sources/$id.jpg"
 
   # 16:9 poster / reduced-motion still
   ffmpeg -y -loglevel error -i "$src" -vf "scale=$W:$H:force_original_aspect_ratio=increase,crop=$W:$H" -q:v 3 "$OUT/$id.jpg"
