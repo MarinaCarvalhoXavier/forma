@@ -169,19 +169,19 @@ export const contact = {
 };
 
 // Scroll-world opening: scroll drives a camera through Forma's story.
-// FREE PLACEHOLDER FOOTAGE — camera push-ins on the stock photos, built by
-// world/build-placeholder.sh. Swap clip/still paths for the real AI-rendered
-// chain later (world/brief.md); nothing else needs to change.
+// AI footage (Seedance 2.0 via Monid, 480p preview) rendered by world/render-world.sh.
+// The free push-in fallback lives in public/world/vid/ (world/build-placeholder.sh):
+// point the clip paths back there and set connectors to [] to use it.
 export const world = {
   hint: "scroll to walk through",
   diveScroll: 1.3,
-  crossfade: 0.08,
+  connScroll: 0.9,
   sections: [
     {
       id: "home",
       label: "Forma",
       still: "/world/home.jpg",
-      clip: "/world/vid/home.mp4",
+      clip: "/world/ai/home.mp4",
       scroll: 1.5,
       linger: 0.35,
       eyebrow: letter.greeting,
@@ -193,7 +193,7 @@ export const world = {
       id: "site",
       label: "The site",
       still: "/world/site.jpg",
-      clip: "/world/vid/site.mp4",
+      clip: "/world/ai/site.mp4",
       eyebrow: "Site and brief",
       title: "The site comes first.",
       body: "Sunlight, views, neighbours, the ground itself and how you live shape the design before any style does.",
@@ -203,7 +203,7 @@ export const world = {
       id: "sketch",
       label: "First sketches",
       still: "/world/sketch.jpg",
-      clip: "/world/vid/sketch.mp4",
+      clip: "/world/ai/sketch.mp4",
       eyebrow: "First sketches",
       title: "A few clear directions.",
       body: "Sketches and simple models to react to — not a finished answer.",
@@ -213,7 +213,7 @@ export const world = {
       id: "material",
       label: "Materials",
       still: "/world/material.jpg",
-      clip: "/world/vid/material.mp4",
+      clip: "/world/ai/material.mp4",
       eyebrow: "Fewer, better materials",
       title: "Timber, lime, stone, steel.",
       body: "A restrained palette chosen to age well and ask for little upkeep.",
@@ -223,7 +223,7 @@ export const world = {
       id: "inside",
       label: "Handover",
       still: "/world/inside.jpg",
-      clip: "/world/vid/inside.mp4",
+      clip: "/world/ai/inside.mp4",
       scroll: 1.5,
       linger: 0.35,
       eyebrow: "Construction and handover",
@@ -236,5 +236,7 @@ export const world = {
       },
     },
   ],
-  connectors: [] as string[],
+  // Aerial flights between the islands (architecture B). Each starts on the previous
+  // dive's real last frame and ends on the next dive's real first frame.
+  connectors: ["/world/ai/conn1.mp4", "/world/ai/conn2.mp4", "/world/ai/conn3.mp4", "/world/ai/conn4.mp4"],
 };

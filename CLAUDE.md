@@ -86,7 +86,7 @@ This branch opens the page with a scroll-scrubbed camera walkthrough, built with
 - **Config and copy:** `world` in `content.ts`.
 - **Page structure:** the rest of the page sits in a `relative z-[70]` wrapper, so it slides over the engine's fixed layers. The engine assumes its container is at the very top of the page (scroll positions start at 0), so nothing may go above `<ScrollWorld />`.
 - **Footage is free placeholder material:** camera push-ins on 3D clay-island scene images. `bash world/prepare-sources.sh` builds `forma/world/sources/<id>.jpg` from the originals in `forma/photos/`: it removes the grey background with `world/knockout.py` (needs Pillow) and places the island right of centre on a `#FEFDFD` canvas. That colour must match `--sw-bg` in `globals.css`, or a box edge shows. `bash world/build-placeholder.sh` (run in `forma/`, needs ffmpeg) rebuilds `public/world/`. Each leg opens on the previous leg's real last frame, so the seams are frame-identical. Read the last frame with `-update 1` and without `-frames:v 1`, otherwise you get a frame a few frames early.
-- **Real AI render:** prompts, open decisions and cost estimates are in `forma/world/brief.md`. Nothing has been paid for.
+- **Real AI footage (live on this branch):** 5 island dives + 4 connector flights, 480p, rendered through Monid (Seedance 2.0) by `world/render-world.sh` (paid; `one <name>` re-renders a single clip) and encoded into `public/world/ai/`. `world` in `content.ts` points there. The free push-ins in `public/world/vid/` are the fallback. Costs and known quirks are in `forma/world/brief.md`. Never run the paid script without the owner's go-ahead.
 
 ## Planned but not built
 

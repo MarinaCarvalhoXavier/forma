@@ -23,8 +23,12 @@ here has been generated or paid for yet.
   moving, the dog's tail; site: architect stretching the string line; sketch: architect
   drawing, lamp glowing; material: builder rolling lime render onto the wall, worker
   carrying timber; inside: architect handing the keys to the homeowners.
-- **Test run done:** one 480p clip of the old photo-style house cost $0.28 (2026-10-02).
-  It doesn't carry over to the 3D style.
+- **480p preview rendered (2026-10-02):** 5 dives + 4 connectors via `world/render-world.sh`,
+  9 × $0.284 = **$2.56**, no re-tries. Seams 31–36 dB. Encoded into `public/world/ai/`.
+  Known quirks: a blurred foreground tree drifts across the left edge early in the
+  materials dive; the sketch→material flight morphs the studio into the site; a few
+  specks float through the material→handover flight. (An earlier photo-style test clip
+  cost $0.28.) A final render at 720p would be ~$9–10.50 with `VRES=720p`.
 - **Mobile version (native 9:16):** not decided; it roughly doubles the video cost.
   The prototype is desktop-only and degrades gracefully on phones.
 - **Video tier:** not decided (see cost below).
