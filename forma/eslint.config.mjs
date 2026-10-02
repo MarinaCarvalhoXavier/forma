@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored scroll-world engine (third-party, kept unmodified).
+    "public/world/scrub-engine.js",
   ]),
 ]);
 

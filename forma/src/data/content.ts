@@ -9,6 +9,8 @@ const unsplash = (id: string, width = 1600) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=75`;
 
 // Placeholder — the architect behind Forma.
+export const brandName = "forma";
+
 export const architect = {
   name: "Helena Duarte",
   firstName: "Helena",
@@ -163,4 +165,75 @@ export const contact = {
   email: "hello@forma.studio",
   phone: "+55 11 0000-0000",
   address: ["Rua das Pedras, 120", "São Paulo — SP, Brazil"],
+};
+
+// Scroll-world opening: scroll drives a camera through Forma's story.
+// FREE PLACEHOLDER FOOTAGE — camera push-ins on the stock photos, built by
+// world/build-placeholder.sh. Swap clip/still paths for the real AI-rendered
+// chain later (world/brief.md); nothing else needs to change.
+export const world = {
+  hint: "scroll to walk through",
+  diveScroll: 1.3,
+  crossfade: 0.08,
+  sections: [
+    {
+      id: "home",
+      label: "Forma",
+      still: "/world/home.jpg",
+      clip: "/world/vid/home.mp4",
+      scroll: 1.5,
+      linger: 0.35,
+      eyebrow: letter.greeting,
+      title: letter.title,
+      body: "Forma is my practice: one architect, from the first walk around your site to the day you get the keys.",
+      tags: ["One architect", "Homes first"],
+    },
+    {
+      id: "site",
+      label: "The site",
+      still: "/world/site.jpg",
+      clip: "/world/vid/site.mp4",
+      eyebrow: "Site and brief",
+      title: "The site comes first.",
+      body: "Sunlight, views, neighbours, the ground itself and how you live shape the design before any style does.",
+      tags: [],
+    },
+    {
+      id: "sketch",
+      label: "First sketches",
+      still: "/world/sketch.jpg",
+      clip: "/world/vid/sketch.mp4",
+      eyebrow: "First sketches",
+      title: "A few clear directions.",
+      body: "Sketches and simple models to react to — not a finished answer.",
+      tags: [],
+    },
+    {
+      id: "material",
+      label: "Materials",
+      still: "/world/material.jpg",
+      clip: "/world/vid/material.mp4",
+      eyebrow: "Fewer, better materials",
+      title: "Timber, lime, stone, steel.",
+      body: "A restrained palette chosen to age well and ask for little upkeep.",
+      tags: [],
+    },
+    {
+      id: "inside",
+      label: "Handover",
+      still: "/world/inside.jpg",
+      clip: "/world/vid/inside.mp4",
+      scroll: 1.5,
+      linger: 0.35,
+      eyebrow: "Construction and handover",
+      title: "Until the keys are yours.",
+      body: "I stay on site with your builder until the last detail is right.",
+      tags: [],
+      cta: {
+        primary: { label: "Start a project", href: "#contact" },
+        secondary: { label: "See the work", href: "#work" },
+      },
+    },
+  ],
+  connectors: [] as string[],
 };
