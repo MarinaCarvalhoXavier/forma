@@ -13,7 +13,7 @@ export default function Contact() {
             <div>
               <dt className="font-mono text-label text-muted">Email</dt>
               <dd>
-                <a href={`mailto:${contact.email}`} className="underline decoration-1 underline-offset-4 hover:text-accent">
+                <a href={`mailto:${contact.email}`} className="underline decoration-1 underline-offset-4 hover:text-accent-text">
                   {contact.email}
                 </a>
               </dd>
@@ -21,7 +21,7 @@ export default function Contact() {
             <div>
               <dt className="font-mono text-label text-muted">Phone</dt>
               <dd>
-                <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-accent">
+                <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-accent-text">
                   {contact.phone}
                 </a>
               </dd>

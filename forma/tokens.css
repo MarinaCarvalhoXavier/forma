@@ -1,22 +1,25 @@
 /* Forma design tokens — the single source for colour, type, space and motion.
  * Tailwind v4 theme block: every token is emitted as a CSS variable on :root
  * (usable as var(--color-ink)) and as a utility (bg-paper, p-md, text-display).
- * Visual system from Design.md (Havn): dark mode · yellow accent · serif display,
+ * Visual system from Design.md (Havn), in light mode · yellow accent · serif display,
  * Inter body, mono labels. Token names stay role-based so components don't change. */
 
 @theme static {
-  /* Colour — Design.md roles: background, surface, text-primary, text-secondary, border, primary */
-  --color-paper: #000000; /* background */
-  --color-paper-2: #171717; /* surface */
-  --color-rule: #525252; /* border */
-  --color-muted: #a1a1aa; /* text-secondary */
-  --color-ink: #ffffff; /* text-primary */
-  --color-accent: #eab308; /* primary / accent */
-  --color-accent-hover: #facc15;
+  /* Colour — light mode. Roles follow Design.md: background, surface, text-primary,
+     text-secondary, border, primary. Yellow stays the accent for fills; text in the
+     accent uses the deeper accent-text so it stays readable on white. */
+  --color-paper: #fafaf9; /* background */
+  --color-paper-2: #f4f4f5; /* surface */
+  --color-rule: #e4e4e7; /* border */
+  --color-muted: #52525b; /* text-secondary */
+  --color-ink: #0a0a0a; /* text-primary */
+  --color-accent: #eab308; /* primary / accent — fills */
+  --color-accent-hover: #ca8a04;
   --color-accent-ink: #000000; /* text on the accent */
-  --color-focus: #eab308;
-  --color-error: #f87171;
-  --color-success: #4ade80;
+  --color-accent-text: #854d0e; /* accent used as text on paper */
+  --color-focus: #854d0e;
+  --color-error: #dc2626;
+  --color-success: #15803d;
 
   /* Type — families are loaded with next/font in src/app/layout.tsx */
   --font-display: var(--font-dm-serif), Georgia, serif;

@@ -13,7 +13,7 @@ export default function Footer() {
         <p className="mt-md max-w-[60ch] text-sm text-muted">
           P.S. You don’t need a finished plan to get in touch — a plot, a house or an idea is enough.
           Write to{" "}
-          <a href={`mailto:${contact.email}`} className="whitespace-nowrap underline decoration-1 underline-offset-4 hover:text-accent">
+          <a href={`mailto:${contact.email}`} className="whitespace-nowrap underline decoration-1 underline-offset-4 hover:text-accent-text">
             {contact.email}
           </a>
           .

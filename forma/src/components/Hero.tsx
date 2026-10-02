@@ -2,7 +2,7 @@ import Image from "next/image";
 import { letter } from "@/data/content";
 
 const textLink =
-  "whitespace-nowrap underline decoration-1 underline-offset-4 transition-colors duration-(--dur-short) hover:text-accent";
+  "whitespace-nowrap underline decoration-1 underline-offset-4 transition-colors duration-(--dur-short) hover:text-accent-text";
 
 // The page opens as a letter from the architect — no buttons in the fold.
 export default function Hero() {

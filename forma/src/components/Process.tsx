@@ -14,7 +14,7 @@ export default function Process() {
               key={step.title}
               className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-lg border-t border-rule py-lg"
             >
-              <span className="pt-2xs font-mono text-label tabular-nums text-accent">
+              <span className="pt-2xs font-mono text-label tabular-nums text-accent-text">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div>

@@ -1,5 +1,5 @@
 /* Hallmark · genre: editorial · macrostructure: Letter · tone: austere · anchor hue: 60
- * theme: design.md (Havn) · dark: #000 paper · #EAB308 accent · DM Serif Display + Inter + JetBrains Mono labels
+ * theme: design.md (Havn) · light: #FAFAF9 paper · #EAB308 accent (#854D0E as text) · DM Serif Display + Inter + JetBrains Mono labels
  * radius: card 16px · control 8px · pill buttons
  * H5 letter knobs: salutation=greeting, body=2 paragraphs, signoff=typed name
  * nav: N9 edge-aligned (CTA outlined) · footer: Ft6 letter close (roman, postscript)
@@ -16,7 +16,7 @@ body {
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -60,7 +60,8 @@ h3 {
 /* Scroll-world engine theme. The engine's own CSS lives in `@layer sw`, so these
  * unlayered rules win. Colours and fonts come from the Design.md tokens. */
 .sw-root {
-  --sw-bg: var(--color-paper);
+  /* The 3D island scenes sit on this near-white; matching it hides the frame edges. */
+  --sw-bg: #fefdfd;
   --sw-ink: var(--color-ink);
   --sw-ink-soft: var(--color-muted);
   --sw-accent: var(--color-accent);
@@ -84,6 +85,9 @@ h3 {
   font-family: var(--font-mono);
   font-weight: 600;
 }
+.sw-copy__eyebrow {
+  color: var(--color-accent-text);
+}
 .sw-nav,
 .sw-route__label {
   background: color-mix(in srgb, var(--color-paper-2) 85%, transparent);
@@ -105,4 +109,12 @@ h3 {
   background: var(--color-paper-2);
   border-color: var(--color-rule);
   color: var(--color-ink);
+}
+
+/* Phones crop the 16:9 scenes to a narrow slice: keep the island (≈61% across) in view. */
+@media (max-width: 860px) {
+  .sw-scene__video,
+  .sw-scene__still {
+    object-position: 61% 50%;
+  }
 }

@@ -24,6 +24,7 @@ LEG=6        # seconds of push-in per scene
 BLEND=1.2    # seconds of dissolve from the previous leg's last frame
 ZEND=1.22    # how far each push-in travels (zoom 1.0 → 1.22)
 CRF=25       # placeholder footage: lighter than the skill's crf 20 for real AI clips
+FX=0.61; FY=0.5  # point the camera pushes toward (fraction of width/height): the island's centre
 
 encode() {  # master encode for smooth scrubbing (SKILL Step 6)
   ffmpeg -y -loglevel error -i "$1" -an -vf "unsharp=5:5:0.8:5:5:0.0" \
@@ -35,7 +36,7 @@ encode() {  # master encode for smooth scrubbing (SKILL Step 6)
 pushin() {  # $1 image, $2 seconds, $3 zoom start, $4 zoom end, $5 out
   local frames; frames=$(awk "BEGIN{print int($2*$FPS)}")
   ffmpeg -y -loglevel error -loop 1 -i "$1" -vf \
-    "scale=$((W*3)):$((H*3)):force_original_aspect_ratio=increase,crop=$((W*3)):$((H*3)),zoompan=z='$3+($4-$3)*on/($frames-1)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=$frames:s=${W}x${H}:fps=$FPS,format=yuv420p" \
+    "scale=$((W*3)):$((H*3)):force_original_aspect_ratio=increase,crop=$((W*3)):$((H*3)),zoompan=z='$3+($4-$3)*on/($frames-1)':x='(iw-iw/zoom)*$FX':y='(ih-ih/zoom)*$FY':d=$frames:s=${W}x${H}:fps=$FPS,format=yuv420p" \
     -frames:v "$frames" -c:v libx264 -crf 12 -preset fast "$5"
 }
 

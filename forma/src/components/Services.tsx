@@ -16,7 +16,7 @@ export default function Services() {
             <dt className="font-display text-md md:col-span-3">{service.name}</dt>
             <dd className="max-w-[60ch] text-muted md:col-span-6">{service.text}</dd>
             {service.note && (
-              <dd className="flex items-center gap-xs font-mono text-label text-accent md:col-span-3 md:justify-end">
+              <dd className="flex items-center gap-xs font-mono text-label text-accent-text md:col-span-3 md:justify-end">
                 <span aria-hidden="true" className="size-1.5 rounded-pill bg-accent" />
                 {service.note}
               </dd>

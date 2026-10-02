@@ -13,10 +13,18 @@ here has been generated or paid for yet.
 - **Palette (Design.md):** background `#000000`, surface `#171717`, text `#FFFFFF`,
   secondary `#A1A1AA`, border `#525252`, accent `#EAB308`
 - **Tone:** calm, premium, restrained
-- **Art direction:** photoreal architectural (full-bleed scenes on a dark page)
-- **Camera:** continuous forward walkthrough (architecture A: no connectors). This was
-  chosen for the prototype. **Confirm before rendering:** fly-through (B) or locked
-  isometric glide are the alternatives.
+- **Art direction:** floating 3D clay-miniature islands with tiny faceless figures doing
+  each phase (reference: the "ORBIT" floating-island style). The five images were made in
+  ChatGPT from `forma/photos-inbox/prompts-3d.md` and prepared by `world/prepare-sources.sh`
+  (background knocked out, island right of centre on a 16:9 `#FEFDFD` canvas).
+- **Camera:** fly-through (architecture B): a dive into each island plus 4 aerial
+  connectors. The free version on the site is still single push-ins (architecture A).
+- **Motion inside the scenes (for the paid video):** home: lights switching on, leaves
+  moving, the dog's tail; site: architect stretching the string line; sketch: architect
+  drawing, lamp glowing; material: builder rolling lime render onto the wall, worker
+  carrying timber; inside: architect handing the keys to the homeowners.
+- **Test run done:** one 480p clip of the old photo-style house cost $0.28 (2026-10-02).
+  It doesn't carry over to the 3D style.
 - **Mobile version (native 9:16):** not decided; it roughly doubles the video cost.
   The prototype is desktop-only and degrades gracefully on phones.
 - **Video tier:** not decided (see cost below).
