@@ -21,6 +21,17 @@ Forma é um **projeto conceitual de portfólio**: o site de uma arquiteta que tr
 
 O raciocínio completo, as decisões e os problemas resolvidos estão no [estudo de caso](https://forma-iota-pink.vercel.app/how-it-was-built).
 
+## Como trabalhei com o agente
+
+O código foi escrito pelo Claude Code, com direção e revisão minhas a cada mudança. O que torna o processo reproduzível está versionado no repositório:
+
+- [`CLAUDE.md`](CLAUDE.md): o briefing do agente — o negócio e o público do site, as regras do sistema de design, as armadilhas desta versão do Next.js, o que nunca fazer sem autorização (como gastar com vídeo pago) e o que ficou para depois. Ele é atualizado a cada decisão, para a próxima sessão começar de onde a anterior parou.
+- [`.hallmark/log.json`](forma/.hallmark/log.json): as escolhas de layout e design feitas com a skill Hallmark.
+- Prompts das imagens ([`prompts.md`](forma/photos-inbox/prompts.md), [`prompts-3d.md`](forma/photos-inbox/prompts-3d.md)) e scripts de vídeo ([`render-world.sh`](forma/world/render-world.sh), [`encode-mobile.sh`](forma/world/encode-mobile.sh)): qualquer imagem ou clipe pode ser refeito a partir daqui.
+- [`brief.md`](forma/world/brief.md): custos, decisões e defeitos conhecidos dos vídeos gerados.
+
+Cada mudança foi verificada antes de ser aceita: lint, build e capturas de tela no celular e no computador.
+
 ## Destaques técnicos
 
 - **Emendas invisíveis entre vídeos:** cada voo começa no último quadro real do clipe anterior e termina no primeiro do seguinte.
