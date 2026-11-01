@@ -1,17 +1,18 @@
 # Forma scroll-world: brief for the real AI render
 
-The page in this branch runs on **free placeholder footage**: slow camera push-ins on
-stock photos (`world/build-placeholder.sh`). This brief holds everything needed to
-replace that footage with a real AI camera flight using the scroll-world skill. Nothing
-here has been generated or paid for yet.
+The live site runs on the **AI footage** described under "480p preview rendered" below
+(`public/world/ai/`, lighter phone copies in `public/world/ai/m/`). The free placeholder
+push-ins (`world/build-placeholder.sh`, `public/world/vid/`) remain as the fallback. The
+first sections are the original planning notes; the photo-style scene table and prompts
+further down were superseded by the clay-island art direction.
 
 ## Intake (scroll-world Step 1)
 
 - **Subject:** Forma, a solo architecture practice. Calm, material-led homes, from the
   first walk around the site to handover.
 - **Brand:** forma
-- **Palette (Design.md):** background `#000000`, surface `#171717`, text `#FFFFFF`,
-  secondary `#A1A1AA`, border `#525252`, accent `#EAB308`
+- **Palette (Design.md, light mode):** background `#FAFAF9`, surface `#F4F4F5`, text `#0A0A0A`,
+  secondary `#52525B`, border `#E4E4E7`, accent `#EAB308`
 - **Tone:** calm, premium, restrained
 - **Art direction:** floating 3D clay-miniature islands with tiny faceless figures doing
   each phase (reference: the "ORBIT" floating-island style). The five images were made in

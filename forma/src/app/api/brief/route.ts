@@ -30,7 +30,7 @@ Turn it into a short brief for the architect:
 - constraints: up to 3 short points on limits they mention (budget, timing, rules, access); empty if none.
 - questions: 2 or 3 friendly questions the architect would ask next to understand the project.
 
-Use only what the client wrote; do not invent facts, numbers or prices. Write every field in the same language the client used. Keep it brief and warm.`;
+Use only what the client wrote; do not invent facts, numbers or prices. Write every field in the same language the client used (for Portuguese, Brazilian Portuguese). Keep it brief and warm.`;
 
 const MAX_CHARS = 1500;
 const MIN_CHARS = 20;

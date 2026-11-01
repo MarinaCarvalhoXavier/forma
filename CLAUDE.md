@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `test.txt` at the root is a scratch file and has nothing to do with the site.
 - `README.md` at the root (Portuguese) is the public face of the repo on GitHub; keep its numbers in sync with the case study.
 
-The site owner is new to code, so explain changes in plain language.
+The owner directs the build and reviews every change; explain changes in plain language.
 
 ## Business context
 
@@ -53,7 +53,7 @@ There is no test suite. Verify changes with `npm run lint` and `npm run build`, 
 ## Architecture
 
 - **Content is separate from presentation.** All copy, images, links and lists live in `forma/src/data/content.ts`. Components import from it and contain no hardcoded copy. New content goes in `content.ts`, never inline in a component.
-- **Portfolio concept:** the site is a concept piece for the owner's portfolio (an AI Builder job application). Forma, "Helena Duarte" and the projects are fictional; every image and video is AI-generated. The page says so (`concept` in `content.ts`: a note under Selected work and in the footer). The About image is a crop of the clay studio scene (`public/images/studio.jpg`), not a real person. Never add numbers, client quotes, logos or awards that the owner hasn't supplied. The design rules ban invented proof.
+- **Portfolio concept:** the site is a concept piece for the owner's portfolio. Forma, "Helena Duarte" and the projects are fictional; every image and video is AI-generated. The page says so (`concept` in `content.ts`: a note under Selected work and in the footer). The About image is a crop of the clay studio scene (`public/images/studio.jpg`), not a real person. Never add numbers, client quotes, logos or awards that the owner hasn't supplied. The design rules ban invented proof.
 - **Case study:** `/how-it-was-built` (`src/app/how-it-was-built/page.tsx`, copy in `howItWasBuilt` in `content.ts`, in Portuguese) explains the build. Every figure on it was checked against the repo; re-check before changing one.
 - **Primary CTA:** every "Start a project" link points to `#contact`. The pinned top bar comes from the scroll-world engine (`cta` in `ScrollWorld.tsx`).
 - **Scroll motion (owner's request):** the portrait and the Selected work images rise into view once (opening upward while fading in from a soft blur, about 1 s) the first time they scroll into view (`components/Reveal.tsx`, `.reveal` in `globals.css`). The text of About, What I design and How a project unfolds is written out word by word as the visitor scrolls (`components/WriteOn.tsx` around the block, copy wrapped in `<Words text=… />`, `[data-write]` in `globals.css`). Both skip motion under reduced motion and hide nothing without JS. Keep other motion sparse and discuss before adding more.
