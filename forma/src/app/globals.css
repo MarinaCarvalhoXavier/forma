@@ -111,10 +111,55 @@ h3 {
   color: var(--color-ink);
 }
 
+/* Past the end of the walkthrough, keep the last scene up (the engine would fade it to a
+ * blank screen) so About slides over the finished picture. Toggled by ScrollWorld.tsx. */
+.sw-hold-last .sw-scene:last-child {
+  opacity: 1 !important;
+}
+/* The top bar (wordmark + "Start a project") stays pinned over the rest of the page:
+ * it sits above the content wrapper (z-70) and, once the walkthrough is over, gets a
+ * paper background so the page scrolls cleanly underneath it. The scene nav only
+ * makes sense inside the walkthrough, so it goes away there. */
+.sw-topbar {
+  z-index: 80;
+  transition: background-color 0.3s, border-color 0.3s;
+  border-bottom: 1px solid transparent;
+}
+.sw-hold-last .sw-topbar {
+  background: var(--color-paper);
+  border-bottom-color: var(--color-rule);
+}
+.sw-hold-last .sw-nav {
+  visibility: hidden;
+}
+/* Keep anchor jumps (#about, #work, #contact…) clear of the pinned bar. */
+html {
+  scroll-padding-top: 6rem;
+}
+
+/* …and fade the closing copy away, so About's edge doesn't slice through it. */
+.sw-copylayer {
+  transition: opacity 0.3s;
+}
+.sw-hold-last .sw-copylayer {
+  opacity: 0;
+}
+.sw-hold-last .sw-copy {
+  pointer-events: none !important;
+}
+
 /* Phones crop the 16:9 scenes to a narrow slice: keep the island (≈61% across) in view. */
 @media (max-width: 860px) {
   .sw-scene__video,
   .sw-scene__still {
     object-position: 61% 50%;
+  }
+  /* The scroll hint sat on top of the first scene's tags. On phones drop the mouse icon
+   * and keep the text on one line, so it fits under the copy. */
+  .sw-hint i {
+    display: none;
+  }
+  .sw-hint {
+    white-space: nowrap;
   }
 }

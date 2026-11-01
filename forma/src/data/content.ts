@@ -169,7 +169,8 @@ export const contact = {
 };
 
 // Scroll-world opening: scroll drives a camera through Forma's story.
-// AI footage (Seedance 2.0 via Monid, 480p preview) rendered by world/render-world.sh.
+// AI footage (Seedance 2.0 via Monid, 480p preview) rendered by world/render-world.sh;
+// phones get the lighter copies in public/world/ai/m/ (world/encode-mobile.sh).
 // The free push-in fallback lives in public/world/vid/ (world/build-placeholder.sh):
 // point the clip paths back there and set connectors to [] to use it.
 export const world = {
@@ -182,6 +183,7 @@ export const world = {
       label: "Forma",
       still: "/world/home.jpg",
       clip: "/world/ai/home.mp4",
+      clipMobile: "/world/ai/m/home.mp4",
       scroll: 1.5,
       linger: 0.35,
       eyebrow: letter.greeting,
@@ -194,6 +196,7 @@ export const world = {
       label: "The site",
       still: "/world/site.jpg",
       clip: "/world/ai/site.mp4",
+      clipMobile: "/world/ai/m/site.mp4",
       eyebrow: "Site and brief",
       title: "The site comes first.",
       body: "Sunlight, views, neighbours, the ground itself and how you live shape the design before any style does.",
@@ -204,6 +207,7 @@ export const world = {
       label: "First sketches",
       still: "/world/sketch.jpg",
       clip: "/world/ai/sketch.mp4",
+      clipMobile: "/world/ai/m/sketch.mp4",
       eyebrow: "First sketches",
       title: "A few clear directions.",
       body: "Sketches and simple models to react to — not a finished answer.",
@@ -214,6 +218,7 @@ export const world = {
       label: "Materials",
       still: "/world/material.jpg",
       clip: "/world/ai/material.mp4",
+      clipMobile: "/world/ai/m/material.mp4",
       eyebrow: "Fewer, better materials",
       title: "Timber, lime, stone, steel.",
       body: "A restrained palette chosen to age well and ask for little upkeep.",
@@ -224,6 +229,7 @@ export const world = {
       label: "Handover",
       still: "/world/inside.jpg",
       clip: "/world/ai/inside.mp4",
+      clipMobile: "/world/ai/m/inside.mp4",
       scroll: 1.5,
       linger: 0.35,
       eyebrow: "Construction and handover",
@@ -239,4 +245,7 @@ export const world = {
   // Aerial flights between the islands (architecture B). Each starts on the previous
   // dive's real last frame and ends on the next dive's real first frame.
   connectors: ["/world/ai/conn1.mp4", "/world/ai/conn2.mp4", "/world/ai/conn3.mp4", "/world/ai/conn4.mp4"],
+  // Lighter encodes of the same clips for phones (world/encode-mobile.sh), so each one
+  // finishes downloading before the visitor scrolls past it.
+  connectorsMobile: ["/world/ai/m/conn1.mp4", "/world/ai/m/conn2.mp4", "/world/ai/m/conn3.mp4", "/world/ai/m/conn4.mp4"],
 };
