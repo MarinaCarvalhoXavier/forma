@@ -1,10 +1,10 @@
 /* Hallmark · genre: editorial · macrostructure: Letter · tone: austere · anchor hue: 60
- * theme: design.md (Havn) · dark: #000 paper · #EAB308 accent · DM Serif Display + Inter + JetBrains Mono labels
+ * theme: design.md (Havn) · light: #FAFAF9 paper · #EAB308 accent (#854D0E as text) · DM Serif Display + Inter + JetBrains Mono labels
  * radius: card 16px · control 8px · pill buttons
  * H5 letter knobs: salutation=greeting, body=2 paragraphs, signoff=typed name
  * nav: N9 edge-aligned (CTA outlined) · footer: Ft6 letter close (roman, postscript)
  * features: F3 spec sheet (3 cols, every row) · F4 steps (01/02, vertical, no connector)
- * enrichment: none (placeholder photography) · motion: none (colour only) · contrast: pass (40–41)
+ * enrichment: none (placeholder photography) · motion: image fade-in + text write-on on scroll only · contrast: pass (40–41)
  */
 @import "tailwindcss";
 @import "../../tokens.css";
@@ -16,7 +16,7 @@ body {
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -57,10 +57,64 @@ h3 {
   }
 }
 
+/* Image reveal (components/Reveal.tsx): the first time a photo scrolls into view it
+ * rises into place like a blind opening upward while it fades in from a soft blur and
+ * settles from a slight zoom; then its caption fades in. */
+/* Transitions only on the way in, so hiding a photo at load is instant. */
+.reveal[data-reveal="in"] .reveal-media {
+  transition:
+    clip-path 1100ms var(--ease-out) var(--reveal-delay, 0ms),
+    opacity 900ms cubic-bezier(0.45, 0, 0.2, 1) var(--reveal-delay, 0ms);
+}
+.reveal[data-reveal="in"] .reveal-media img {
+  transition:
+    transform 1600ms var(--ease-out) var(--reveal-delay, 0ms),
+    filter 900ms cubic-bezier(0.45, 0, 0.2, 1) var(--reveal-delay, 0ms);
+}
+.reveal[data-reveal="in"] figcaption {
+  transition: opacity 500ms var(--ease-out) calc(var(--reveal-delay, 0ms) + 600ms);
+}
+.reveal-media {
+  clip-path: inset(0 0 0 0 round var(--radius-card));
+}
+.reveal[data-reveal="pending"] .reveal-media {
+  clip-path: inset(100% 0 0 0 round var(--radius-card));
+}
+.reveal[data-reveal="pending"] .reveal-media,
+.reveal[data-reveal="pending"] figcaption {
+  opacity: 0;
+}
+.reveal[data-reveal="pending"] .reveal-media img {
+  transform: scale(1.1);
+  filter: blur(16px);
+}
+/* Reduced motion: no wipe, blur or zoom; the photo simply appears (transitions are off above). */
+@media (prefers-reduced-motion: reduce) {
+  .reveal[data-reveal="pending"] .reveal-media {
+    clip-path: inset(0 0 0 0 round var(--radius-card));
+  }
+  .reveal[data-reveal="pending"] .reveal-media img {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Written text (components/WriteOn.tsx + Words.tsx): in About, What I design and How a
+ * project unfolds, the words appear in reading order as the visitor scrolls, as if
+ * being written. Each word fades in quickly once its turn comes. */
+[data-write="on"] .w {
+  opacity: 0;
+}
+[data-write="on"] .w.is-written {
+  opacity: 1;
+  transition: opacity 250ms var(--ease-out);
+}
+
 /* Scroll-world engine theme. The engine's own CSS lives in `@layer sw`, so these
  * unlayered rules win. Colours and fonts come from the Design.md tokens. */
 .sw-root {
-  --sw-bg: var(--color-paper);
+  /* The 3D island scenes sit on this near-white; matching it hides the frame edges. */
+  --sw-bg: #fefdfd;
   --sw-ink: var(--color-ink);
   --sw-ink-soft: var(--color-muted);
   --sw-accent: var(--color-accent);
@@ -84,6 +138,9 @@ h3 {
   font-family: var(--font-mono);
   font-weight: 600;
 }
+.sw-copy__eyebrow {
+  color: var(--color-accent-text);
+}
 .sw-nav,
 .sw-route__label {
   background: color-mix(in srgb, var(--color-paper-2) 85%, transparent);
@@ -105,4 +162,57 @@ h3 {
   background: var(--color-paper-2);
   border-color: var(--color-rule);
   color: var(--color-ink);
+}
+
+/* Past the end of the walkthrough, keep the last scene up (the engine would fade it to a
+ * blank screen) so About slides over the finished picture. Toggled by ScrollWorld.tsx. */
+.sw-hold-last .sw-scene:last-child {
+  opacity: 1 !important;
+}
+/* The top bar (wordmark + "Start a project") stays pinned over the rest of the page:
+ * it sits above the content wrapper (z-70) and, once the walkthrough is over, gets a
+ * paper background so the page scrolls cleanly underneath it. The scene nav only
+ * makes sense inside the walkthrough, so it goes away there. */
+.sw-topbar {
+  z-index: 80;
+  transition: background-color 0.3s, border-color 0.3s;
+  border-bottom: 1px solid transparent;
+}
+.sw-hold-last .sw-topbar {
+  background: var(--color-paper);
+  border-bottom-color: var(--color-rule);
+}
+.sw-hold-last .sw-nav {
+  visibility: hidden;
+}
+/* Keep anchor jumps (#about, #work, #contact…) clear of the pinned bar. */
+html {
+  scroll-padding-top: 6rem;
+}
+
+/* …and fade the closing copy away, so About's edge doesn't slice through it. */
+.sw-copylayer {
+  transition: opacity 0.3s;
+}
+.sw-hold-last .sw-copylayer {
+  opacity: 0;
+}
+.sw-hold-last .sw-copy {
+  pointer-events: none !important;
+}
+
+/* Phones crop the 16:9 scenes to a narrow slice: keep the island (≈61% across) in view. */
+@media (max-width: 860px) {
+  .sw-scene__video,
+  .sw-scene__still {
+    object-position: 61% 50%;
+  }
+  /* The scroll hint sat on top of the first scene's tags. On phones drop the mouse icon
+   * and keep the text on one line, so it fits under the copy. */
+  .sw-hint i {
+    display: none;
+  }
+  .sw-hint {
+    white-space: nowrap;
+  }
 }

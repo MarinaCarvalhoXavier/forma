@@ -13,10 +13,22 @@ here has been generated or paid for yet.
 - **Palette (Design.md):** background `#000000`, surface `#171717`, text `#FFFFFF`,
   secondary `#A1A1AA`, border `#525252`, accent `#EAB308`
 - **Tone:** calm, premium, restrained
-- **Art direction:** photoreal architectural (full-bleed scenes on a dark page)
-- **Camera:** continuous forward walkthrough (architecture A: no connectors). This was
-  chosen for the prototype. **Confirm before rendering:** fly-through (B) or locked
-  isometric glide are the alternatives.
+- **Art direction:** floating 3D clay-miniature islands with tiny faceless figures doing
+  each phase (reference: the "ORBIT" floating-island style). The five images were made in
+  ChatGPT from `forma/photos-inbox/prompts-3d.md` and prepared by `world/prepare-sources.sh`
+  (background knocked out, island right of centre on a 16:9 `#FEFDFD` canvas).
+- **Camera:** fly-through (architecture B): a dive into each island plus 4 aerial
+  connectors. The free version on the site is still single push-ins (architecture A).
+- **Motion inside the scenes (for the paid video):** home: lights switching on, leaves
+  moving, the dog's tail; site: architect stretching the string line; sketch: architect
+  drawing, lamp glowing; material: builder rolling lime render onto the wall, worker
+  carrying timber; inside: architect handing the keys to the homeowners.
+- **480p preview rendered (2026-10-02):** 5 dives + 4 connectors via `world/render-world.sh`,
+  9 × $0.284 = **$2.56**, no re-tries. Seams 31–36 dB. Encoded into `public/world/ai/`.
+  Known quirks: a blurred foreground tree drifts across the left edge early in the
+  materials dive; the sketch→material flight morphs the studio into the site; a few
+  specks float through the material→handover flight. (An earlier photo-style test clip
+  cost $0.28.) A final render at 720p would be ~$9–10.50 with `VRES=720p`.
 - **Mobile version (native 9:16):** not decided; it roughly doubles the video cost.
   The prototype is desktop-only and degrades gracefully on phones.
 - **Video tier:** not decided (see cost below).

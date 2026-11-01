@@ -11,28 +11,11 @@ export default function Contact() {
 
           <dl className="mt-xl space-y-md text-sm">
             <div>
-              <dt className="font-mono text-label text-muted">Email</dt>
-              <dd>
-                <a href={`mailto:${contact.email}`} className="underline decoration-1 underline-offset-4 hover:text-accent">
-                  {contact.email}
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="font-mono text-label text-muted">Phone</dt>
-              <dd>
-                <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className="hover:text-accent">
-                  {contact.phone}
-                </a>
-              </dd>
-            </div>
-            <div>
               <dt className="font-mono text-label text-muted">Studio</dt>
-              {contact.address.map((line) => (
-                <dd key={line}>{line}</dd>
-              ))}
+              <dd>{contact.city}</dd>
             </div>
           </dl>
+          <p className="mt-xl max-w-[45ch] text-sm text-muted">{contact.demoNote}</p>
         </div>
 
         <div className="md:col-span-6 md:col-start-7">
