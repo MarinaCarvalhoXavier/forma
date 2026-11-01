@@ -19,10 +19,16 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const title = "Forma — Architecture by one architect";
+const description =
+  "A concept site for a solo architecture practice: a scroll-driven walk through five clay-model islands, built with generative AI. Start a project.";
+
 export const metadata: Metadata = {
-  title: "Forma — Architecture by one architect",
-  description:
-    "Forma is a solo architecture practice designing calm, material-led homes, small workspaces, interiors and landscapes. Start a project.",
+  // Absolute base for the link-preview image (app/opengraph-image.jpg).
+  metadataBase: new URL("https://forma-iota-pink.vercel.app"),
+  title,
+  description,
+  openGraph: { title, description, type: "website" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

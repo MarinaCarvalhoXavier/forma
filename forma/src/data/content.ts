@@ -1,33 +1,32 @@
 // All content for the Forma landing page.
 // Edit the text, links and images here — the components read from this file.
 //
-// PLACEHOLDERS: the architect's name, portrait, project names and every photo
-// are stand-ins. Replace them with real ones before publishing. Don't add
-// numbers, client quotes or awards unless they are real.
+// This is a concept project for a portfolio: Forma, Helena and the projects are
+// fictional, and every image and video was generated with AI (see `concept` below,
+// shown on the page). Don't add numbers, client quotes or awards.
 
-const unsplash = (id: string, width = 1600) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=75`;
-
-// Placeholder — the architect behind Forma.
 export const brandName = "forma";
 
 export const architect = {
   name: "Helena Duarte",
   firstName: "Helena",
-  portrait: unsplash("1494790108377-be9c29b29330", 900),
+  // A clay-model scene from the same AI world as the walkthrough, not a real person.
+  portrait: "/images/studio.jpg",
+  portraitAlt: "A clay-model scene of the studio: an architect drawing at a timber desk while a client looks at a small white model of a house",
+  portraitCaption: "The studio, as a clay model",
+};
+
+// Shown on the page so nobody mistakes the concept for a real practice.
+export const concept = {
+  short: "Concept projects · images generated with AI",
+  note: "Forma is a concept project made for a portfolio. The practice, Helena and the projects are fictional; every image and video was generated with AI, and the enquiry form is a demo that sends nothing.",
+  howLabel: "How this site was built",
+  howHref: "/how-it-was-built",
 };
 
 export const letter = {
   greeting: `Hello, I’m ${architect.firstName}.`,
   title: "I design calm houses, one at a time.",
-  paragraphs: [
-    `Forma is my architecture practice. When you work with Forma, you work with me — from the first walk around your site and the first sketch, through construction, to the day you get the keys.`,
-    "Most of what I design are homes: new houses, extensions, and old houses given a second life. I also take on small workspaces, interiors, and the landscape around a building.",
-  ],
-  signoff: `— ${architect.firstName}`,
-  photo: unsplash("1600585154340-be6161a56a0c", 2000),
-  photoAlt: "A modern house with large windows in warm evening light",
-  photoCaption: "Casa Duna, Florianópolis · 2024",
 };
 
 export const about = {
@@ -163,9 +162,36 @@ export const projectTypes = [
 export const contact = {
   title: "Start a project",
   text: "Tell me a little about your site or your idea. I read every message myself.",
-  email: "hello@forma.studio",
-  phone: "+55 11 0000-0000",
-  address: ["Rua das Pedras, 120", "São Paulo — SP, Brazil"],
+  city: "São Paulo, Brazil",
+  demoNote: "This form is a demo: nothing is sent and nothing is stored.",
+  sent: (name: string) =>
+    `Thank you, ${name}. This is a portfolio demo, so your enquiry was not sent anywhere — on a live site, this is where it would reach Helena.`,
+};
+
+// "Organise my brief": an AI step in the contact form (app/api/brief/route.ts).
+export const brief = {
+  button: "Organise my brief with AI",
+  working: "Reading your project…",
+  hint: "Write a few sentences above, then let AI turn them into a short brief you can check before sending.",
+  title: "Your brief, as Helena would read it",
+  disclaimer: "Drafted by AI (Claude) from your words. Check it before you send.",
+  labels: {
+    projectType: "Project type",
+    summary: "In short",
+    site: "Site",
+    wishes: "What you hope for",
+    constraints: "Things to keep in mind",
+    questions: "What Helena would ask next",
+  },
+  useType: "Use this project type",
+  errors: {
+    off: "The AI brief is switched off on this copy of the site.",
+    limit: "That’s a few briefs in a row — try again in a few minutes.",
+    short: "Write a little more about your project first (a couple of sentences).",
+    long: "That’s a long message — keep it under 1,500 characters for the brief.",
+    busy: "The AI is busy right now — try again in a moment.",
+    failed: "The brief couldn’t be drafted this time. Your message is still here; try again or just send it.",
+  },
 };
 
 // Scroll-world opening: scroll drives a camera through Forma's story.
@@ -248,4 +274,72 @@ export const world = {
   // Lighter encodes of the same clips for phones (world/encode-mobile.sh), so each one
   // finishes downloading before the visitor scrolls past it.
   connectorsMobile: ["/world/ai/m/conn1.mp4", "/world/ai/m/conn2.mp4", "/world/ai/m/conn3.mp4", "/world/ai/m/conn4.mp4"],
+};
+
+// The case study at /how-it-was-built, in Portuguese for the portfolio's readers.
+// Every figure here was checked against the repository (git history, render logs, file sizes).
+export const howItWasBuilt = {
+  metaTitle: "Como este site foi construído — Forma",
+  metaDescription: "Estudo de caso: uma landing page de arquitetura construída com IA — código com Claude Code, imagens no ChatGPT, vídeos com Seedance 2.0 e um resumo de projeto gerado pelo Claude.",
+  back: "← Voltar ao site",
+  title: "Como este site foi construído",
+  intro: "Forma é um projeto conceitual: o site de uma arquiteta que trabalha sozinha e projeta casas calmas, com poucos materiais. A arquiteta, os projetos e as imagens são fictícios. O objetivo era testar até onde dá para levar um site com ferramentas de IA generativa, cuidando de cada decisão de produto e de design.",
+  sections: [
+    {
+      title: "O problema",
+      paragraphs: [
+        "Um escritório de uma pessoa só precisa transmitir duas coisas: calma e atenção pessoal. E precisa transformar visitas em pedidos de projeto. Por isso o site inteiro conduz para um único botão, “Start a project”, que leva ao formulário.",
+      ],
+    },
+    {
+      title: "O que foi construído",
+      items: [
+        "Uma abertura em que a rolagem conduz uma câmera por cinco ilhas de argila, uma para cada fase do trabalho: a casa pronta, o terreno, os primeiros esboços, a obra e a entrega das chaves.",
+        "Uma página escrita como uma carta da arquiteta, com textos que se escrevem conforme a leitura e fotos que surgem ao entrar na tela.",
+        "Um formulário em que a IA transforma a descrição livre do visitante num resumo organizado do projeto, que ele confere antes de enviar.",
+      ],
+    },
+    {
+      title: "Como a IA foi usada",
+      table: {
+        head: ["Ferramenta", "Para quê", "Resultado"],
+        rows: [
+          ["Claude Code", "Escrever e revisar todo o código, com as skills Hallmark (design) e scroll-world (motor da rolagem)", "Next.js 16, React 19, TypeScript e Tailwind CSS v4"],
+          ["ChatGPT", "Gerar as imagens a partir de prompts escritos e versionados no repositório", "15 imagens: 10 fotorrealistas e 5 ilhas de argila"],
+          ["Seedance 2.0 (via Monid)", "Animar as ilhas e criar os voos de câmera entre elas", "9 clipes de 4 s em 480p, por US$ 2,84 no total, sem nenhuma refação"],
+          ["Claude API (Opus 5.5)", "Organizar o pedido do visitante com saída estruturada", "Tipo de projeto, terreno, desejos, restrições e perguntas da arquiteta"],
+        ],
+      },
+    },
+    {
+      title: "Decisões que tomei",
+      items: [
+        "Trocar fotos de banco de imagens por um mundo próprio de ilhas de argila, para o site ter uma identidade que não parece template.",
+        "Mudar o visual para o modo claro, mais próximo da luz de uma casa e do estilo calmo da marca.",
+        "Pedir interações que reforçam a ideia de carta — texto que se escreve, fotos que surgem — e ajustar o ritmo delas até parecerem naturais.",
+        "Manter o botão principal sempre à vista e deixar claro, no próprio site, que tudo é conceitual e gerado por IA.",
+        "Usar a IA dentro do produto para ajudar o visitante a começar, e não só nos bastidores.",
+      ],
+    },
+    {
+      title: "Problemas resolvidos no caminho",
+      items: [
+        "Emendas invisíveis entre os vídeos: cada voo começa exatamente no último quadro real do vídeo anterior.",
+        "Bordas aparecendo em volta das ilhas: o fundo cinza das imagens foi removido e trocado pela mesma cor da página.",
+        "Cenas paradas no celular: versões mais leves dos vídeos só para telas pequenas reduziram o download de 16 MB para 7 MB.",
+        "Tela em branco no fim do passeio: a última cena agora fica na tela enquanto o resto da página sobe por cima.",
+        "Animações que disparavam antes da hora ao recarregar a página: os efeitos passaram a esperar o passeio montar.",
+      ],
+    },
+    {
+      title: "Em números",
+      items: [
+        "5 cenas, 9 clipes de vídeo, 15 imagens geradas",
+        "US$ 2,84 em geração de vídeo",
+        "Construído em 1 e 2 de outubro de 2026, com refinamentos em 31 de outubro",
+      ],
+    },
+  ],
+  repoLabel: "Ver o código no GitHub →",
+  repoHref: "https://github.com/MarinaCarvalhoXavier/forma",
 };

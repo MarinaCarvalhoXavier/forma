@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { contact, projectTypes } from "@/data/content";
+import type { BriefResult } from "@/app/api/brief/route";
+import { brief as briefCopy, contact, projectTypes } from "@/data/content";
 
 type Field = "name" | "email" | "projectType" | "message";
 type Values = Record<Field, string>;
@@ -28,12 +29,21 @@ function validate(field: Field, value: string): string {
 const fieldClass =
   "mt-xs block min-h-11 w-full rounded-control border border-rule bg-paper-2 px-sm py-xs text-base transition-colors duration-(--dur-short) outline-2 outline-offset-1 outline-transparent outline-solid hover:border-muted focus-visible:outline-focus aria-invalid:border-error";
 
-// Until a form service is connected, sending opens the visitor's email app
-// with the enquiry already written, addressed to contact.email.
+// The site is a portfolio demo: sending validates the enquiry and confirms on screen,
+// but nothing leaves the page. A real form service would replace that step in
+// handleSubmit. "Organise my brief" asks Claude (app/api/brief) to turn the message
+// into a structured brief the visitor can check.
+type BriefState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "done"; brief: BriefResult }
+  | { status: "error"; message: string };
+
 export default function ContactForm() {
   const [values, setValues] = useState<Values>(empty);
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
   const [sent, setSent] = useState(false);
+  const [aiBrief, setAiBrief] = useState<BriefState>({ status: "idle" });
 
   const errorFor = (field: Field) => (touched[field] ? validate(field, values[field]) : "");
 
@@ -54,10 +64,28 @@ export default function ContactForm() {
       return;
     }
 
-    const subject = `New project enquiry — ${values.projectType}`;
-    const body = `Name: ${values.name}\nEmail: ${values.email}\nProject type: ${values.projectType}\n\n${values.message}`;
-    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSent(true);
+  }
+
+  async function organiseBrief() {
+    setAiBrief({ status: "loading" });
+    try {
+      const res = await fetch("/api/brief", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: values.message }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.brief) {
+        setAiBrief({ status: "error", message: data.error ?? briefCopy.errors.failed });
+        return;
+      }
+      setAiBrief({ status: "done", brief: data.brief });
+      // Fill an empty project type; otherwise offer the AI's pick as a one-click choice.
+      if (!values.projectType) setValues((v) => ({ ...v, projectType: data.brief.projectType }));
+    } catch {
+      setAiBrief({ status: "error", message: briefCopy.errors.failed });
+    }
   }
 
   const describe = (field: Field) => (errorFor(field) ? `contact-${field}-error` : undefined);
@@ -167,6 +195,29 @@ export default function ContactForm() {
         )}
       </div>
 
+      <div className="space-y-sm">
+        <button
+          type="button"
+          onClick={organiseBrief}
+          disabled={aiBrief.status === "loading" || values.message.trim().length < 20}
+          className="inline-flex min-h-11 items-center gap-xs whitespace-nowrap rounded-pill border border-ink px-lg text-sm font-medium transition-colors duration-(--dur-short) hover:bg-paper-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus active:translate-y-px disabled:cursor-not-allowed disabled:opacity-55"
+        >
+          <span aria-hidden="true">✦</span>
+          {aiBrief.status === "loading" ? briefCopy.working : briefCopy.button}
+        </button>
+        {aiBrief.status === "idle" && <p className="text-sm text-muted">{briefCopy.hint}</p>}
+        <div aria-live="polite">
+          {aiBrief.status === "error" && <p className="text-sm text-error">{aiBrief.message}</p>}
+          {aiBrief.status === "done" && (
+            <BriefCard
+              brief={aiBrief.brief}
+              current={values.projectType}
+              onUseType={() => setValues({ ...values, projectType: aiBrief.brief.projectType })}
+            />
+          )}
+        </div>
+      </div>
+
       <button
         type="submit"
         className="inline-flex min-h-11 items-center gap-xs whitespace-nowrap rounded-pill bg-accent px-lg text-sm font-medium text-accent-ink transition-colors duration-(--dur-short) hover:bg-accent-hover active:translate-y-px disabled:cursor-not-allowed disabled:opacity-55"
@@ -176,9 +227,68 @@ export default function ContactForm() {
       </button>
 
       <p role="status" className="text-sm text-success">
-        {sent &&
-          `Your email app should now open with the enquiry ready to send. If nothing opened, write to ${contact.email}.`}
+        {sent && contact.sent(values.name.trim())}
       </p>
     </form>
+  );
+}
+
+function BriefCard({ brief, current, onUseType }: { brief: BriefResult; current: string; onUseType: () => void }) {
+  const { labels } = briefCopy;
+  const list = (items: string[]) => (
+    <ul className="list-disc space-y-2xs pl-md">
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  );
+  return (
+    <section aria-label={briefCopy.title} className="rounded-card border border-rule bg-paper-2 p-lg text-sm">
+      <h3 className="font-display text-md">{briefCopy.title}</h3>
+      <p className="mt-2xs font-mono text-label text-muted">{briefCopy.disclaimer}</p>
+      <dl className="mt-md space-y-sm">
+        <div>
+          <dt className="font-mono text-label text-muted">{labels.projectType}</dt>
+          <dd className="flex flex-wrap items-center gap-sm">
+            {brief.projectType}
+            {current && current !== brief.projectType && (
+              <button
+                type="button"
+                onClick={onUseType}
+                className="whitespace-nowrap text-accent-text underline decoration-1 underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-focus active:translate-y-px"
+              >
+                {briefCopy.useType}
+              </button>
+            )}
+          </dd>
+        </div>
+        <div>
+          <dt className="font-mono text-label text-muted">{labels.summary}</dt>
+          <dd>{brief.summary}</dd>
+        </div>
+        <div>
+          <dt className="font-mono text-label text-muted">{labels.site}</dt>
+          <dd>{brief.site}</dd>
+        </div>
+        {brief.wishes.length > 0 && (
+          <div>
+            <dt className="font-mono text-label text-muted">{labels.wishes}</dt>
+            <dd>{list(brief.wishes)}</dd>
+          </div>
+        )}
+        {brief.constraints.length > 0 && (
+          <div>
+            <dt className="font-mono text-label text-muted">{labels.constraints}</dt>
+            <dd>{list(brief.constraints)}</dd>
+          </div>
+        )}
+        {brief.questions.length > 0 && (
+          <div>
+            <dt className="font-mono text-label text-muted">{labels.questions}</dt>
+            <dd>{list(brief.questions)}</dd>
+          </div>
+        )}
+      </dl>
+    </section>
   );
 }

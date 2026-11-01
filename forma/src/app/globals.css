@@ -4,7 +4,7 @@
  * H5 letter knobs: salutation=greeting, body=2 paragraphs, signoff=typed name
  * nav: N9 edge-aligned (CTA outlined) · footer: Ft6 letter close (roman, postscript)
  * features: F3 spec sheet (3 cols, every row) · F4 steps (01/02, vertical, no connector)
- * enrichment: none (placeholder photography) · motion: none (colour only) · contrast: pass (40–41)
+ * enrichment: none (placeholder photography) · motion: image fade-in + text write-on on scroll only · contrast: pass (40–41)
  */
 @import "tailwindcss";
 @import "../../tokens.css";
@@ -55,6 +55,59 @@ h3 {
   * {
     transition-duration: 0ms !important;
   }
+}
+
+/* Image reveal (components/Reveal.tsx): the first time a photo scrolls into view it
+ * rises into place like a blind opening upward while it fades in from a soft blur and
+ * settles from a slight zoom; then its caption fades in. */
+/* Transitions only on the way in, so hiding a photo at load is instant. */
+.reveal[data-reveal="in"] .reveal-media {
+  transition:
+    clip-path 1100ms var(--ease-out) var(--reveal-delay, 0ms),
+    opacity 900ms cubic-bezier(0.45, 0, 0.2, 1) var(--reveal-delay, 0ms);
+}
+.reveal[data-reveal="in"] .reveal-media img {
+  transition:
+    transform 1600ms var(--ease-out) var(--reveal-delay, 0ms),
+    filter 900ms cubic-bezier(0.45, 0, 0.2, 1) var(--reveal-delay, 0ms);
+}
+.reveal[data-reveal="in"] figcaption {
+  transition: opacity 500ms var(--ease-out) calc(var(--reveal-delay, 0ms) + 600ms);
+}
+.reveal-media {
+  clip-path: inset(0 0 0 0 round var(--radius-card));
+}
+.reveal[data-reveal="pending"] .reveal-media {
+  clip-path: inset(100% 0 0 0 round var(--radius-card));
+}
+.reveal[data-reveal="pending"] .reveal-media,
+.reveal[data-reveal="pending"] figcaption {
+  opacity: 0;
+}
+.reveal[data-reveal="pending"] .reveal-media img {
+  transform: scale(1.1);
+  filter: blur(16px);
+}
+/* Reduced motion: no wipe, blur or zoom; the photo simply appears (transitions are off above). */
+@media (prefers-reduced-motion: reduce) {
+  .reveal[data-reveal="pending"] .reveal-media {
+    clip-path: inset(0 0 0 0 round var(--radius-card));
+  }
+  .reveal[data-reveal="pending"] .reveal-media img {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Written text (components/WriteOn.tsx + Words.tsx): in About, What I design and How a
+ * project unfolds, the words appear in reading order as the visitor scrolls, as if
+ * being written. Each word fades in quickly once its turn comes. */
+[data-write="on"] .w {
+  opacity: 0;
+}
+[data-write="on"] .w.is-written {
+  opacity: 1;
+  transition: opacity 250ms var(--ease-out);
 }
 
 /* Scroll-world engine theme. The engine's own CSS lives in `@layer sw`, so these
